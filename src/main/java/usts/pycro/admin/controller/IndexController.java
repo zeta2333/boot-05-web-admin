@@ -39,7 +39,7 @@ public class IndexController {
             //保存登录成功的用户
             session.setAttribute("loginUser", user);
             //登录成功重定向到main页面
-            return "redirect:main.html";
+            return "redirect:/main.html";
         } else {
             model.addAttribute("msg", "账号密码错误");
             return "login";

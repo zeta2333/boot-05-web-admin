@@ -257,7 +257,7 @@
                             <a href="">
                                 <span class="thumb"><img src="images/photos/user1.png" alt=""/></span>
                                 <span class="desc">
-                                          <span class="name">John Doe <span
+                                          <span class="name">[[${session.loginUser.userName}]]<span
                                                   class="badge badge-success">new</span></span>
                                           <span class="msg">Lorem ipsum dolor sit amet...</span>
                                         </span>
@@ -352,7 +352,7 @@
                 <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
                     <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                     <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                    <li><a href="#"><i class="fa fa-sign-out"></i> Log Out</a></li>
+                    <li><a th:href="@{/}"><i class="fa fa-sign-out"></i> Log Out</a></li>
                 </ul>
             </li>
 
