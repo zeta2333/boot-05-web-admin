@@ -13,7 +13,7 @@ import java.util.Arrays;
  * @version 1.0
  * 2023-05-05 3:23 PM
  */
-@Configuration
+@Configuration(proxyBeanMethods = true)//保证容器中的组件是单实例的
 public class MyRegisterConfig {
     @Bean
     public ServletRegistrationBean myServlet() {

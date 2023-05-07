@@ -1,10 +1,13 @@
 package usts.pycro.admin.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import usts.pycro.admin.bean.User;
 
 import javax.servlet.http.HttpSession;
@@ -16,6 +19,17 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class IndexController {
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
+    @ResponseBody
+    @GetMapping("/sql")
+    public String queryFromDB() {
+        String sql = "select count(*) from t_emp";
+        Long cnt = jdbcTemplate.queryForObject(sql, Long.class);
+        return cnt.toString();
+    }
+
     /**
      * 登录页
      *
