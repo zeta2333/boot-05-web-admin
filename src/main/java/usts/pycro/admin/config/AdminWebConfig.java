@@ -31,7 +31,7 @@ public class AdminWebConfig implements WebMvcConfigurer {
                 .excludePathPatterns(
                         "/", "/login", "/css/**", "/fonts/**",
                         "/images/**", "/js/**","/aa/**",
-                        "/sql"
+                        "/sql","/city"
                 );
     }
 }

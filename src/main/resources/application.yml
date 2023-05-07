@@ -4,6 +4,7 @@ spring:
         username: root
         password: 12345678
         driver-class-name: com.mysql.cj.jdbc.Driver
+        #    type: com.zaxxer.hikari.HikariDataSource
         druid:
             aop-patterns: usts.pycro.admin.* # 监控SpringBean
             filters: stat,wall # 底层开启功能：stat（sql监控），wall（防火墙）
@@ -18,15 +19,20 @@ spring:
                 url-pattern: /*
                 exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
             filter:
-              stat: # 对filters里面的stat进行详细配置
-                  slow-sql-millis: 1000
-                  log-slow-sql: true
-                  enabled: true
-              wall: # 对filters里面的stat进行详细配置
-                  enabled: true
-                  config:
-                      drop-table-allow: false
+                stat: # 对filters里面的stat进行详细配置
+                    slow-sql-millis: 1000
+                    log-slow-sql: true
+                    enabled: true
+                wall: # 对filters里面的stat进行详细配置
+                    enabled: true
+                    config:
+                        drop-table-allow: false
     jdbc:
         template:
             query-timeout: 3  # 超过3秒判断请求超时
-#    type: com.zaxxer.hikari.HikariDataSource
+# 配置mybatis规则
+mybatis:
+    #    config-location: classpath:mybatis/mybatis-config.xml # 全局配置文件位置
+    mapper-locations: classpath:/mapper/*.xml # sql映射文件位置
+    configuration: # 指定mybatis全局配置文件中的相关配置项
+        map-underscore-to-camel-case: true

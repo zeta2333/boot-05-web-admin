@@ -1,14 +1,19 @@
 package usts.pycro.admin.controller;
 
+import com.mysql.cj.log.Log;
+import jdk.nashorn.internal.runtime.regexp.joni.constants.CCSTATE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import usts.pycro.admin.bean.City;
+import usts.pycro.admin.bean.Employee;
 import usts.pycro.admin.bean.User;
+import usts.pycro.admin.service.CityService;
+import usts.pycro.admin.service.EmpService;
+import usts.pycro.admin.service.UserService;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,6 +26,33 @@ import javax.servlet.http.HttpSession;
 public class IndexController {
     @Autowired
     JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    EmpService empService;
+
+    @Autowired
+    CityService cityService;
+
+
+
+    @ResponseBody
+    @GetMapping("/emp")
+    public Employee getEmpById(@RequestParam("id") Long id) {
+        return empService.getEmpById(id);
+    }
+
+    @PostMapping("/city")
+    @ResponseBody
+    public City insertCity(City city){
+        cityService.saveCity(city);
+        return city;
+    }
+
+    @ResponseBody
+    @GetMapping("/city")
+    public City getCityById(@RequestParam("id") Long id) {
+        return cityService.getById(id);
+    }
 
     @ResponseBody
     @GetMapping("/sql")
