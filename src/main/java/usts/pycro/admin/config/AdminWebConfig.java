@@ -1,9 +1,11 @@
 package usts.pycro.admin.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import usts.pycro.admin.interceptor.LoginInterceptor;
+import usts.pycro.admin.interceptor.RedisUrlCountInterceptor;
 
 /**
  * @author Pycro
@@ -17,6 +19,14 @@ import usts.pycro.admin.interceptor.LoginInterceptor;
 //@EnableWebMvc
 @Configuration
 public class AdminWebConfig implements WebMvcConfigurer {
+
+    /**
+     * Filter. Interceptor 几乎拥有相同的功能?
+     * 1、Filter是Servlet定义的原生组件。优点是脱离Spring应用也能使用
+     * 2、Interceptor是Spring定义的接口。可以使用spring的自动装配等功能
+     */
+    @Autowired
+    RedisUrlCountInterceptor redisUrlCountInterceptor;
     //@Override
     //public void addResourceHandlers(ResourceHandlerRegistry registry) {
     //    // 访问"/aa/**"所有请求都去"classpath:/static/"路径下匹配
@@ -30,8 +40,13 @@ public class AdminWebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**")//所有的请求包括静态资源都被拦截
                 .excludePathPatterns(
                         "/", "/login", "/css/**", "/fonts/**",
-                        "/images/**", "/js/**","/aa/**",
-                        "/sql","/city"
+                        "/images/**", "/js/**", "/aa/**"
+                );
+        registry.addInterceptor(redisUrlCountInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns(
+                        "/", "/login", "/css/**", "/fonts/**",
+                        "/images/**", "/js/**", "/aa/**"
                 );
     }
 }

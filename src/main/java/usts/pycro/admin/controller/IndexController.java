@@ -3,6 +3,8 @@ package usts.pycro.admin.controller;
 import com.mysql.cj.log.Log;
 import jdk.nashorn.internal.runtime.regexp.joni.constants.CCSTATE;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +35,8 @@ public class IndexController {
     @Autowired
     CityService cityService;
 
-
+    @Autowired
+    StringRedisTemplate redisTemplate;
 
     @ResponseBody
     @GetMapping("/emp")
@@ -43,7 +46,7 @@ public class IndexController {
 
     @PostMapping("/city")
     @ResponseBody
-    public City insertCity(City city){
+    public City insertCity(City city) {
         cityService.saveCity(city);
         return city;
     }
@@ -107,6 +110,11 @@ public class IndexController {
         //    model.addAttribute("msg", "请重新登录");
         //    return "login";
         //}
+        ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
+        String mainCnt = opsForValue.get("/main.html");
+        String sqlCnt = opsForValue.get("/sql");
+        model.addAttribute("mainCount",mainCnt);
+        model.addAttribute("sqlCount",sqlCnt);
         return "main";
     }
 }

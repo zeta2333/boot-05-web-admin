@@ -30,8 +30,21 @@ spring:
     jdbc:
         template:
             query-timeout: 3  # 超过3秒判断请求超时
+    redis:
+        # url格式为：redis://<password>@<host>:<port>,其中password推荐使用 "用户名:密码" 的格式
+        url: redis://123456@centos:6379
+        client-type: lettuce
+        lettuce:
+            pool:
+                max-active: 10
+                min-idle: 5
+#        lettuce:
+#            pool:
+#                max-active: 10
+#                min-idle: 5
+
 # 配置mybatis规则
-mybatis:
+mybatis-plus:
     #    config-location: classpath:mybatis/mybatis-config.xml # 全局配置文件位置
     mapper-locations: classpath:/mapper/*.xml # sql映射文件位置
     configuration: # 指定mybatis全局配置文件中的相关配置项
