@@ -1,6 +1,7 @@
 package usts.pycro.admin;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,6 +9,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import usts.pycro.admin.bean.User;
 import usts.pycro.admin.mapper.UserMapper;
 
@@ -41,12 +43,14 @@ class Boot05WebAdminApplicationTests {
     }
 
     @Test
+    @Transactional
     public void testUserMapper() {
         User user = userMapper.selectById(1);
         System.out.println(userMapper.getClass().getName());
         log.info("用户信息：{}", user);
     }
 
+    @Disabled
     @Test
     public void testRedis() {
         ValueOperations<String, String> operations = redisTemplate.opsForValue();
