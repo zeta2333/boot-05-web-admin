@@ -1,6 +1,5 @@
 package usts.pycro.admin.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -25,7 +24,7 @@ public class AdminWebConfig implements WebMvcConfigurer {
      * 1、Filter是Servlet定义的原生组件。优点是脱离Spring应用也能使用
      * 2、Interceptor是Spring定义的接口。可以使用spring的自动装配等功能
      */
-    @Autowired
+    //@Autowired
     RedisUrlCountInterceptor redisUrlCountInterceptor;
     //@Override
     //public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -42,11 +41,11 @@ public class AdminWebConfig implements WebMvcConfigurer {
                         "/", "/login", "/css/**", "/fonts/**",
                         "/images/**", "/js/**", "/aa/**"
                 );
-        registry.addInterceptor(redisUrlCountInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns(
-                        "/", "/login", "/css/**", "/fonts/**",
-                        "/images/**", "/js/**", "/aa/**"
-                );
+        //registry.addInterceptor(redisUrlCountInterceptor)
+        //        .addPathPatterns("/**")
+        //        .excludePathPatterns(
+        //                "/", "/login", "/css/**", "/fonts/**",
+        //                "/images/**", "/js/**", "/aa/**"
+        //        );
     }
 }

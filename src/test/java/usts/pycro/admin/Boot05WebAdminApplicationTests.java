@@ -27,7 +27,7 @@ class Boot05WebAdminApplicationTests {
     @Autowired
     UserMapper userMapper;
 
-    @Autowired
+    //@Autowired
     StringRedisTemplate redisTemplate;
 
     @Autowired

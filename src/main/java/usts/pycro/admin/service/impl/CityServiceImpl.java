@@ -1,5 +1,7 @@
 package usts.pycro.admin.service.impl;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import usts.pycro.admin.bean.City;
@@ -16,11 +18,19 @@ public class CityServiceImpl implements CityService {
     @Autowired
     CityMapper cityMapper;
 
+    Counter counter;
+
+    public CityServiceImpl(MeterRegistry meterRegistry) {
+        counter = meterRegistry.counter("CityService.saveCity.count");
+    }
+
     public City getById(Long id) {
         return cityMapper.getById(id);
     }
 
     public void saveCity(City city) {
+        // 每次调用saveCity，就让counter增加
+        counter.increment();
         cityMapper.insert(city);
     }
 }

@@ -35,7 +35,7 @@ public class IndexController {
     @Autowired
     CityService cityService;
 
-    @Autowired
+    //@Autowired
     StringRedisTemplate redisTemplate;
 
     @ResponseBody
@@ -110,11 +110,11 @@ public class IndexController {
         //    model.addAttribute("msg", "请重新登录");
         //    return "login";
         //}
-        ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
-        String mainCnt = opsForValue.get("/main.html");
-        String sqlCnt = opsForValue.get("/sql");
-        model.addAttribute("mainCount",mainCnt);
-        model.addAttribute("sqlCount",sqlCnt);
+        // ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
+        // String mainCnt = opsForValue.get("/main.html");
+        // String sqlCnt = opsForValue.get("/sql");
+        // model.addAttribute("mainCount",mainCnt);
+        // model.addAttribute("sqlCount",sqlCnt);
         return "main";
     }
 }
